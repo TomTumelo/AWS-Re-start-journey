@@ -6,7 +6,7 @@
 - **Note:** Public access was blocked by default
 - **Action:** Left all settings as default, scrolled down, clicked **"Create bucket"**
 
-![Create S3 Bucket](images/step-1-create-s3-bucket.png)
+![Create S3 Bucket](images/step-1-create-s3-bucket)
 
 ---
 
@@ -53,4 +53,5 @@
 ![Website Live](images/step-6-website-live.png)
 
 ---
+
 
