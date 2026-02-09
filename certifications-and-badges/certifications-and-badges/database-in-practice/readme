@@ -1,0 +1,174 @@
+🗄️ Databases in Practice – SimuLearn (Full Flow)
+1️⃣ Understand the Scenario (Solution Request)
+
+You’re migrating from:
+
+On-premises Windows database
+
+File server
+
+Linked application
+
+Goal:
+
+Move to AWS
+
+Improve scalability
+
+Add high availability
+
+Reduce downtime
+
+2️⃣ Deploy the Primary Database (Amazon RDS)
+
+Choose engine (usually MySQL)
+
+Enable:
+
+Multi-AZ deployment
+
+Choose:
+
+Instance size
+
+Storage
+
+Configure:
+
+VPC
+
+Subnets
+
+Security group (allow MySQL 3306)
+
+✅ Outcome:
+Primary RDS database running in Multi-AZ (high availability).
+
+3️⃣ Launch Application Servers (EC2)
+
+Launch EC2 instances
+
+Place them in:
+
+Same VPC
+
+Different Availability Zones
+
+Install application / connect to DB
+
+Security:
+
+EC2 → allowed to access RDS
+
+Proper security group rules
+
+✅ Outcome:
+Application servers can communicate with the primary database.
+
+4️⃣ Add a Load Balancer
+
+Create Application Load Balancer
+
+Register EC2 instances
+
+Configure health checks
+
+✅ Outcome:
+Traffic distributed across multiple app servers.
+
+This improves:
+
+Reliability
+
+Fault tolerance
+
+🔁 5️⃣ Create a Read Replica (This Is The Important Part)
+
+Now scaling reads.
+
+From RDS:
+
+Select primary DB
+
+Click Actions
+
+Choose Create Read Replica
+
+Deploy in:
+
+Different AZ (or region depending on lab)
+
+What happens:
+
+Primary DB → replicates data → Read Replica
+
+Replica is:
+
+Read-only
+
+Used for heavy SELECT queries
+
+6️⃣ Redirect Read Traffic to Replica
+
+Application configuration:
+
+Write operations → Primary DB
+
+Read operations → Read Replica
+
+This:
+
+Reduces load on primary
+
+Improves performance
+
+Allows horizontal scaling
+
+7️⃣ Multi-AZ High Availability
+
+Multi-AZ means:
+
+Primary DB in AZ-A
+
+Standby DB in AZ-B
+
+Automatic failover
+
+If AZ-A fails:
+AWS promotes standby automatically.
+
+Zero manual intervention.
+
+🧠 What This Lab Is Testing You On
+
+You demonstrated:
+
+RDS deployment
+
+Multi-AZ architecture
+
+Read replica scaling
+
+EC2 + RDS integration
+
+Load balancing
+
+High availability principles
+
+Disaster recovery concepts
+
+This is real cloud architecture thinking.
+
+🏗️ Architecture Summary (From That Diagram)
+
+Client
+⬇
+Load Balancer
+⬇
+Multiple EC2 instances (different AZs)
+⬇
+Primary RDS (Multi-AZ)
+⬇
+Read Replica
+
+That’s enterprise-level design.
