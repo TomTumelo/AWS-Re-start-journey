@@ -1,1 +1,116 @@
 
+
+> AWS SimuLearn: Networking – Lab Steps
+
+
+---
+
+# 🧪 Lab: Allow Web Server to Connect to DB Server (Port 3306)
+
+## 🎯 Objective
+
+Allow the Web Server in subnet `10.10.0.0/24` to connect to the DB Server in subnet `10.10.2.0/24` using **MySQL (TCP 3306)**.
+
+---
+
+# ✅ Step-by-Step Configuration
+
+---
+
+## 🔹 Step 1: Open EC2 Console
+
+1. Log into AWS Management Console
+2. Navigate to **EC2**
+3. In the left panel, click **Security Groups**
+
+---
+
+## 🔹 Step 2: Identify the DB Security Group
+
+1. Locate: `DbServerSecurityGroup`
+2. Click on it
+3. Go to the **Inbound Rules** tab
+4. Click **Edit inbound rules**
+
+⚠️ Important:
+We modify the **DB security group**, not the Web Server one.
+
+---
+
+## 🔹 Step 3: Add MySQL Rule
+
+Click **Add Rule** and configure:
+
+* **Type:** MySQL/Aurora
+* **Protocol:** TCP
+* **Port Range:** 3306
+* **Source:** Select `WebServerSecurityGroup` (Security Group reference)
+
+Do NOT use:
+
+* ❌ 0.0.0.0/0
+* ❌ Entire CIDR unless required
+
+Using the WebServerSecurityGroup follows least-privilege best practice.
+
+---
+
+## 🔹 Step 4: Save Changes
+
+Click **Save rules**
+
+---
+
+## 🔹 Step 5: Validate Connection
+
+Return to SimuLearn environment.
+
+The diagram should now show:
+
+✅ Status: Connected
+
+This confirms:
+
+* Web Server can send traffic
+* DB Security Group allows inbound 3306
+* Because Security Groups are stateful, return traffic is automatically allowed
+
+---
+
+# 🧠 Why This Works
+
+Security Groups are:
+
+* Instance-level firewalls
+* Stateful
+* Evaluated before traffic reaches the instance
+
+Traffic Flow:
+
+Web Server
+→ Sends TCP request (3306)
+→ DB Security Group checks inbound rules
+→ Sees WebServerSecurityGroup allowed
+→ Connection established
+
+---
+
+# 🔐 Best Practice Applied
+
+✔ Principle of Least Privilege
+✔ No public database exposure
+✔ Instance-to-instance security group referencing
+
+---
+
+# 🚩 Common Mistakes to Avoid
+
+* Editing the wrong Security Group
+* Opening MySQL to 0.0.0.0/0
+* Modifying NACL instead of Security Group
+* Changing route tables unnecessarily
+
+---
+
+
+
