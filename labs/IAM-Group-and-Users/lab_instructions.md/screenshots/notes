@@ -1,13 +1,155 @@
-## 📸 Screenshots
+🔐 IAM Notes – Creating Groups, Users & Attaching Managed Policies
+📌 Purpose of This Lab
 
-### IAM Group Created
-![Group Created](screenshots/group-created.png)
+This lab demonstrates how to:
 
-### Managed Policy Attached
-![Policy Attached](screenshots/policy-attached.png)
+Create IAM groups
 
-### Users Added to Group
-![Users Added](screenshots/users-added.png)
+Create IAM users
 
-### Permission Inheritance
-![Permission Validation](screenshots/permission-validation.png)
+Attach AWS managed policies to a group
+
+Assign users to a group
+
+Validate permission inheritance
+
+It reinforces AWS Identity and Access Management (IAM) best practices.
+
+🧠 Core IAM Concepts
+IAM Structure
+User → Group → Policy → AWS Services
+
+Best Practice:
+
+Do NOT attach policies directly to users
+
+Attach policies to groups
+
+Add users to groups
+
+This ensures scalable and clean permission management.
+
+👥 IAM Components
+1️⃣ IAM User
+
+Represents a person or application
+
+Has long-term credentials (username/password or access keys)
+
+2️⃣ IAM Group
+
+Collection of users
+
+Used to assign permissions collectively
+
+3️⃣ IAM Policy
+
+JSON document defining permissions
+
+Specifies:
+
+Effect (Allow/Deny)
+
+Actions
+
+Resources
+
+4️⃣ AWS Managed Policy
+
+Pre-created by AWS
+
+Maintained and updated by AWS
+
+Example:
+
+AmazonS3ReadOnlyAccess
+
+AmazonEC2ReadOnlyAccess
+
+🔐 Permission Model
+
+Permissions are inherited.
+
+Example:
+
+If:
+
+Group = Developers
+
+Policy attached = AmazonS3ReadOnlyAccess
+
+Users added = user1, user2
+
+Then:
+All users in Developers group automatically get S3 read-only access.
+
+🛠 Key Steps Performed in This Lab
+1️⃣ Create IAM Group
+
+Navigate to IAM → User groups
+
+Click Create group
+
+Provide group name
+
+Attach AWS managed policy
+
+2️⃣ Attach AWS Managed Policy
+
+Search for policy
+
+Select appropriate policy
+
+Attach to group
+
+Example policies:
+
+AmazonS3ReadOnlyAccess
+
+AmazonEC2ReadOnlyAccess
+
+3️⃣ Create IAM Users
+
+Navigate to IAM → Users
+
+Click Create user
+
+Enable console access (if required)
+
+Set password
+
+Add user to group
+
+4️⃣ Validate Permissions
+
+Open user profile
+
+Go to Permissions tab
+
+Confirm:
+
+Permissions inherited via group
+
+Managed policy attached
+
+🔎 Important Commands (CLI Alternative)
+
+Create user:
+
+aws iam create-user --user-name user1
+
+Create group:
+
+aws iam create-group --group-name Developers
+
+Attach policy:
+
+aws iam attach-group-policy \
+  --group-name Developers \
+  --policy-arn arn:aws:iam::aws:policy/AmazonS3ReadOnlyAccess
+
+Add user to group:
+
+aws iam add-user-to-group \
+  --user-name user1 \
+  --group-name Developers
