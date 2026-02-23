@@ -1,0 +1,13 @@
+## 📸 Screenshots
+
+### IAM Group Created
+![Group Created](screenshots/group-created.png)
+
+### Managed Policy Attached
+![Policy Attached](screenshots/policy-attached.png)
+
+### Users Added to Group
+![Users Added](screenshots/users-added.png)
+
+### Permission Inheritance
+![Permission Validation](screenshots/permission-validation.png)
