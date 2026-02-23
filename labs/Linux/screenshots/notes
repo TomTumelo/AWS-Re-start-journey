@@ -1,0 +1,254 @@
+🐧 Linux File System – Lab 233 Notes
+1️⃣ Lab Purpose
+
+This lab reinforces:
+
+Linux directory management
+
+File creation
+
+Copying and moving files/folders
+
+Deleting files and directories
+
+Validating structure using CLI tools
+
+Connecting to EC2 via SSH
+
+It simulates a real-world company folder reorganization scenario.
+
+2️⃣ Core Linux Commands Used
+📍 Navigation Commands
+pwd
+
+Prints current working directory.
+
+pwd
+
+Example Output:
+
+/home/ec2-user/CompanyA
+cd
+
+Changes directory.
+
+cd foldername
+cd ..
+cd /home/ec2-user
+
+Key concepts:
+
+.. = parent directory
+
+Absolute path starts with /
+
+Relative path starts from current directory
+
+ls
+
+Lists files and folders.
+
+ls
+ls -la
+ls -laR
+
+Flags:
+
+-l = long listing format
+
+-a = show hidden files
+
+-R = recursive (shows all subdirectories)
+
+3️⃣ Directory Creation
+mkdir
+
+Creates new directory.
+
+mkdir CompanyA
+mkdir Finance HR Management
+
+You can create multiple directories at once.
+
+4️⃣ File Creation
+touch
+
+Creates empty files.
+
+touch Salary.csv
+touch file1.csv file2.csv
+
+Important:
+
+Does NOT add content
+
+Creates empty placeholder files
+
+5️⃣ Copying Files and Directories
+cp
+Copy file
+cp file.txt destination/
+Copy directory
+cp -r Finance HR
+
+⚠️ Important:
+
+-r means recursive
+
+Required when copying directories
+
+Without -r, Linux will throw an error.
+
+6️⃣ Moving Files and Directories
+mv
+
+Used to:
+
+Move files
+
+Move directories
+
+Rename files
+
+Example:
+
+mv Management HR
+mv file.txt Employees/
+
+Key concept:
+mv removes from original location automatically.
+
+7️⃣ Deleting Files and Directories
+rm
+
+Deletes files.
+
+rm file.csv
+
+Delete multiple:
+
+rm file1.csv file2.csv
+rmdir
+
+Removes empty directories ONLY.
+
+rmdir Finance
+
+If directory has files inside:
+
+You will see:
+
+Directory not empty
+rm -r
+
+Deletes directory and all contents recursively.
+
+rm -r Finance
+
+⚠️ Powerful command — use carefully.
+
+8️⃣ File System Structure Concepts
+Absolute Path
+
+Starts from root:
+
+/home/ec2-user/CompanyA/Finance
+Relative Path
+
+Based on current location:
+
+cd ../Finance
+9️⃣ Recursive Validation
+
+To verify entire structure:
+
+ls -laR
+
+This:
+
+Displays permissions
+
+Shows ownership
+
+Shows file sizes
+
+Shows nested directory structure
+
+🔟 SSH Connection Concepts
+
+To connect to EC2:
+
+ssh -i key.pem ec2-user@public-ip
+
+Breakdown:
+
+ssh = secure shell
+
+-i = identity file
+
+ec2-user = default Amazon Linux user
+
+public-ip = EC2 instance address
+
+Permission adjustment:
+
+chmod 400 key.pem
+
+This makes the key file read-only.
+
+1️⃣1️⃣ Real-World Scenario
+
+The lab simulates:
+
+CompanyA restructuring departments:
+
+Original:
+
+CompanyA/
+├── Finance
+├── HR
+└── Management
+
+New structure:
+
+CompanyA/
+└── HR/
+    ├── Finance
+    ├── Management
+    └── Employees
+
+This represents:
+
+Organizational restructuring
+
+Department merging
+
+File migration
+
+1️⃣2️⃣ Common Errors & Lessons Learned
+
+❌ Trying to use rmdir on non-empty folder
+✔ Solution: Remove files first OR use rm -r
+
+❌ Forgetting -r when copying directory
+✔ Solution: Always use cp -r for folders
+
+❌ Wrong path usage
+✔ Use pwd frequently
+
+❌ Not verifying changes
+✔ Use ls after every step
+
+1️⃣3️⃣ Key Linux Skills Reinforced
+
+CLI confidence
+
+File hierarchy understanding
+
+Relative vs absolute path awareness
+
+Recursive operations
+
+Safe deletion practices
+
+SSH connectivity
