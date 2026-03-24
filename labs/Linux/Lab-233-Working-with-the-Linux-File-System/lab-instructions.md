@@ -1,182 +1,98 @@
-.
+# Lab 233 – Instructions
 
-🐧 Lab 233 – Working with the Linux File System
-📌 Overview
+## Task 1: Connect to EC2 via SSH
 
-This lab focuses on mastering Linux file system operations inside an Amazon Linux EC2 instance.
+### Windows (PuTTY)
+1. Click **Details > Show** and download the `labsuser.ppk` file
+2. Note the **PublicIP** address
+3. Open PuTTY and connect using the PPK file
 
-You will:
-
-Create a structured directory hierarchy
-
-Create files
-
-Copy directories
-
-Move directories
-
-Delete files and folders
-
-Validate changes using Linux commands
-
-This lab reinforces core Linux administration skills inside AWS.
-
-🧰 Prerequisites
-
-Before starting:
-
-AWS Academy / AWS Lab access
-
-Running Amazon Linux EC2 instance
-
-SSH access (PuTTY for Windows OR Terminal for Mac/Linux)
-
-Basic Linux command knowledge
-
-🚀 Task 1 – Connect to EC2 via SSH
-Step 1 – Start the Lab
-
-Click Start Lab
-
-Wait until Lab Status: Ready
-
-Click AWS to open the AWS Management Console
-
-Step 2 – Download Key Pair
-🪟 Windows Users
-
-Go to Details → Show
-
-Download labsuser.ppk
-
-Open PuTTY
-
-Enter Public IP
-
-Load .ppk file under SSH → Auth
-
-Click Open
-
-🍎 Mac/Linux Users
-
-Download labsuser.pem
-
-Open Terminal
-
-Navigate to Downloads:
-
+### Mac/Linux
+```bash
 cd ~/Downloads
-
-Change permissions:
-
 chmod 400 labsuser.pem
-
-Connect to EC2:
-
 ssh -i labsuser.pem ec2-user@<public-ip>
+```
 
-Type yes if prompted
+---
 
-🏗 Task 2 – Create Folder Structure
-🎯 Goal Structure
-/home/ec2-user/CompanyA/
+## Task 2: Create the Folder Structure
+```bash
+# Make sure you are in the home folder
+pwd
+
+# Create top-level folder
+mkdir CompanyA
+cd CompanyA
+
+# Create subfolders
+mkdir Finance HR Management
+
+# Create HR files
+cd HR
+touch Assessments.csv TrialPeriod.csv
+cd ../Finance
+
+# Create Finance files
+touch Salary.csv ProfitAndLossStatements.csv
+cd ..
+
+# Create Management files
+touch Management/Managers.csv Management/Schedule.csv
+
+# Validate everything
+ls -laR
+```
+
+### Expected Structure
+```
+CompanyA/
 ├── Finance/
-│   ├── Salary.csv
-│   └── ProfitAndLossStatements.csv
+│   ├── ProfitAndLossStatements.csv
+│   └── Salary.csv
 ├── HR/
 │   ├── Assessments.csv
 │   └── TrialPeriod.csv
 └── Management/
     ├── Managers.csv
     └── Schedule.csv
-Step 1 – Navigate Home
-pwd
-cd /home/ec2-user
-Step 2 – Create Main Folder
-mkdir CompanyA
-cd CompanyA
+```
 
-Verify:
+---
 
-ls
-Step 3 – Create Subdirectories
-mkdir Finance HR Management
-
-Verify:
-
-ls
-Step 4 – Create HR Files
-cd HR
-touch Assessments.csv TrialPeriod.csv
-ls
-Step 5 – Create Finance Files
-cd ../Finance
-touch Salary.csv ProfitAndLossStatements.csv
-ls
-Step 6 – Create Management Files
-cd ..
-touch Management/Managers.csv Management/Schedule.csv
-ls Management
-Step 7 – Validate Entire Structure
-ls -laR
-
-This recursively shows all directories and files.
-
-🔄 Task 3 – Reorganize Structure
-🎯 New Structure
-CompanyA/
-└── HR/
-    ├── Finance/
-    │   ├── Salary.csv
-    │   └── ProfitAndLossStatements.csv
-    ├── Management/
-    │   ├── Managers.csv
-    │   └── Schedule.csv
-    └── Employees/
-        ├── Assessments.csv
-        └── TrialPeriod.csv
-Step 1 – Confirm Location
+## Task 3: Reorganize the Folder Structure
+```bash
+# Make sure you are in CompanyA
 pwd
 
-Should show:
-
-/home/ec2-user/CompanyA
-Step 2 – Copy Finance into HR
+# Copy Finance into HR, then delete the original
 cp -r Finance HR
-
-Verify:
-
-ls HR/Finance
-Step 3 – Delete Old Finance Folder
-
-Remove files first:
-
 rm Finance/ProfitAndLossStatements.csv Finance/Salary.csv
-
-Then remove directory:
-
 rmdir Finance
 
-Verify:
-
-ls
-Step 4 – Move Management into HR
+# Move Management into HR
 mv Management HR
 
-Verify:
-
-ls HR/Management
-Step 5 – Create Employees Folder
+# Create Employees folder and move HR files into it
 cd HR
 mkdir Employees
-Step 6 – Move HR Files into Employees
 mv Assessments.csv TrialPeriod.csv Employees
 
-Verify:
+# Validate
+ls . Employees
+```
 
-ls Employees
-🧪 Final Validation
-
-Run:
-
-ls -laR
+### Final Structure
+```
+CompanyA/
+└── HR/
+    ├── Employees/
+    │   ├── Assessments.csv
+    │   └── TrialPeriod.csv
+    ├── Finance/
+    │   ├── ProfitAndLossStatements.csv
+    │   └── Salary.csv
+    └── Management/
+        ├── Managers.csv
+        └── Schedule.csv
+```
