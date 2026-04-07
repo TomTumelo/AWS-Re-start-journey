@@ -1,84 +1,80 @@
-# Lab 01 - SimuLearn Databases in Practice
+# 🗄️ Lab 03 — SimuLearn: Databases in Practice
 
-## Overview
-Hands-on lab covering Amazon RDS provisioning, VPC integration, security group
-configuration, read replica creation and multi-tier architecture design.
+> **Domain:** Databases | **Services:** Amazon RDS, EC2 | **Status:** ✅ Complete
 
-## Implementation Breakdown
+---
 
-### RDS Deployment
-- Engine: MySQL
-- Instance class: db.t3.micro
-- Storage: General Purpose (gp2/gp3)
-- Database identifier: simulearn-db
-- Public access: Disabled
-- VPC: Lab VPC
-- Subnet group: Private subnets
-- Outcome: RDS instance successfully provisioned and available
+## 🎯 Lab Objective
 
-### Security Configuration
-- Security Group Modified: DbServerSecurityGroup
-- Inbound Rule: MySQL/Aurora, TCP, Port 3306, Source: WebServerSecurityGroup
-- Follows Principle of Least Privilege
-- Restricts access to only the application layer
-- Uses Security Group referencing instead of CIDR
-- Security Groups are stateful - return traffic is automatically allowed
+Simulate a real-world database deployment scenario on AWS using **Amazon RDS**. Launch an EC2 instance, install a SQL database engine, and interact with it — covering the full setup from AMI selection to querying data.
 
-### Read Replica Setup
-- Created to improve read scalability
-- Reduces load on primary instance
-- Simulates production-grade scaling pattern
-- Replica receives asynchronous replication
-- Used for read-only workloads
-- Not a backup solution
-- Does not automatically fail over unless promoted
+---
 
-## Security Best Practices Applied
-- Database in private subnet
-- No 0.0.0.0/0 access on port 3306
-- Separation of compute and data layers
-- Security Group referencing
-- Backup configuration enabled
-- Multi-layer architecture design
+## 📚 What I Did
 
-## Key Concepts Practiced
-- Amazon RDS provisioning
-- VPC integration
-- Subnet group selection
-- Security Groups (stateful firewall behavior)
-- MySQL connectivity
-- Read Replica creation
-- Multi-tier architecture reasoning
+### Steps Completed
 
-## Common Mistakes Avoided
-- Placing database in public subnet
-- Enabling public access unnecessarily
-- Opening MySQL to entire CIDR block
-- Modifying NACL instead of Security Group
-- Confusing Multi-AZ with Read Replica
+| Step | Action |
+|---|---|
+| 01 | Launched an EC2 instance for the database environment |
+| 02 | Navigated to AMI selection |
+| 03 | Searched for and selected a SQL-compatible AMI |
+| 04–12 | Configured instance settings, storage, and security group |
+| 13 | Verified database setup milestone |
+| 14–19 | Performed database operations and queries |
+| 20 | Final validation of the completed lab |
 
-## Skills Demonstrated
-- Cloud architecture reasoning
-- Secure database configuration
-- Network-level troubleshooting
-- Infrastructure documentation
-- AWS service integration
-- Structured technical communication
+---
 
-## Learning Reflection
-This lab strengthened understanding of:
-- How databases integrate into cloud networking
-- The importance of controlled internal traffic
-- How read scaling differs from high availability
-- Why architecture design matters beyond simple deployment
+## 🧠 Key Concepts Covered
 
-## Next Steps
-- Implement Multi-AZ deployment for high availability
-- Compare RDS vs DynamoDB use cases
-- Simulate failure and promote read replica
-- Explore parameter groups and performance tuning
-- Implement automated backups and snapshot recovery
+### Amazon RDS vs Self-Managed DB on EC2
 
-## Learning Philosophy
-Input -> Configuration -> Security -> Validation -> Documentation
-Every component is part of a larger architecture chain.
+| Feature | RDS (Managed) | DB on EC2 (Self-managed) |
+|---|---|---|
+| OS patching | AWS handles it | You handle it |
+| Backups | Automated | Manual setup |
+| High availability | Multi-AZ built-in | DIY |
+| Scaling | Push-button | Manual |
+| Cost | Higher | Lower |
+| Control | Less | Full |
+
+### SQL Fundamentals Practiced
+```sql
+-- Creating tables
+CREATE TABLE students (
+  id INT PRIMARY KEY,
+  name VARCHAR(100),
+  score DECIMAL(5,2)
+);
+
+-- Inserting data
+INSERT INTO students VALUES (1, 'Tumelo', 95.5);
+
+-- Querying
+SELECT * FROM students WHERE score > 80;
+
+-- Updating
+UPDATE students SET score = 98 WHERE id = 1;
+```
+
+### Security Group for Databases
+- Never expose port 3306 (MySQL) or 5432 (PostgreSQL) to the internet
+- Allow inbound only from your application's Security Group
+- Use private subnets for database instances in production
+
+---
+
+## 💡 Key Takeaways
+
+1. **RDS removes undifferentiated heavy lifting** — let AWS manage patching, backups, and failover.
+2. **Database security starts at the network layer** — private subnets + tight Security Groups.
+3. **Always use parameter groups** — they let you tune database settings without SSH access.
+4. **Multi-AZ is not a backup** — it's for availability. Use snapshots for point-in-time recovery.
+5. **Read replicas offload read traffic** — never hit your primary DB with reporting queries.
+
+---
+
+## 📸 Screenshots
+
+> Screenshots available in [`./original-overview/screenshots/`](./original-overview/screenshots/)

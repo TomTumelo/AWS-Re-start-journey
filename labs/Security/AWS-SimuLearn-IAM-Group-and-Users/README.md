@@ -1,114 +1,107 @@
+# 🔒 Lab 11 — AWS SimuLearn: IAM Groups and Users
 
-# AWS SimuLearn – IAM Groups and Users Lab
-
-## 📌 Lab Overview
-
-In this lab, I worked with AWS Identity and Access Management (IAM) to understand how access control works in AWS.
-
-The goal of this lab was to:
-
-- Create IAM groups
-- Create IAM users
-- Add users to groups
-- Attach AWS managed policies to groups
-- Validate user permissions
-
-This lab demonstrates how AWS uses role-based access control (RBAC) to manage permissions securely and efficiently.
+> **Domain:** Security | **Service:** AWS IAM | **Status:** ✅ Complete
 
 ---
 
-## 🎯 Objectives
+## 🎯 Lab Objective
 
-By the end of this lab, I was able to:
-
-- Understand IAM structure (Users → Groups → Policies)
-- Create and configure IAM users
-- Create IAM groups
-- Attach AWS managed policies
-- Test and validate assigned permissions
+Create and configure **IAM users and groups** in AWS, attach permission policies, and validate that access controls work as expected. Covers the core of AWS identity management.
 
 ---
 
-## 🛠 Services Used
+## 📚 What I Did
 
-- AWS IAM
-- AWS Management Console
+### Steps Completed (18 steps)
 
----
-
-## 🧱 Lab Architecture
-
-IAM Best Practice Used:
-
-Users ➜ Assigned to Groups ➜ Groups Assigned Policies
-
-Instead of attaching permissions directly to users, permissions were assigned to groups for better scalability and security.
-
----
-
-## 🔹 Step 1 – Create IAM Group
-
-1. Navigate to IAM in AWS Console
-2. Click **User Groups**
-3. Click **Create group**
-4. Name the group
-5. Attach an AWS managed policy
-6. Create group
+| Steps | Action |
+|---|---|
+| 01–03 | Set up the IAM environment and navigated the console |
+| 04–06 | Created IAM groups with specific permission levels |
+| 07–09 | Attached managed policies to groups |
+| 10–12 | Created IAM users and assigned them to groups |
+| 13–15 | Tested user access by logging in with IAM credentials |
+| 16–17 | Validated access (DIY challenge) |
+| 18 | Final validation screenshot |
 
 ---
 
-## 🔹 Step 2 – Create IAM Users
+## 🧠 Key Concepts Covered
 
-1. Click **Users**
-2. Click **Create user**
-3. Enter username
-4. Enable console access
-5. Set password options
-6. Assign user to previously created group
-7. Create user
+### IAM Core Components
+
+```
+AWS Account (Root)
+└── IAM Users        ← Individual people or services
+└── IAM Groups       ← Collections of users
+└── IAM Roles        ← Temporary permissions for services/cross-account
+└── IAM Policies     ← JSON documents defining permissions
+```
+
+### IAM Policy Structure
+```json
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Effect": "Allow",
+      "Action": [
+        "s3:GetObject",
+        "s3:ListBucket"
+      ],
+      "Resource": "arn:aws:s3:::my-bucket/*"
+    }
+  ]
+}
+```
+
+| Field | Purpose |
+|---|---|
+| `Effect` | `Allow` or `Deny` |
+| `Action` | What API calls are permitted (e.g., `s3:GetObject`) |
+| `Resource` | Which specific resource the policy applies to |
+| `Condition` | Optional — add conditions like MFA required, IP range |
+
+### AWS Managed Policies Used
+| Policy | What it allows |
+|---|---|
+| `AdministratorAccess` | Full access to everything |
+| `PowerUserAccess` | Full access except IAM management |
+| `ReadOnlyAccess` | View all resources, change nothing |
+| `AmazonS3FullAccess` | Full S3 control |
+| `AmazonEC2ReadOnlyAccess` | View EC2 resources only |
+
+### Groups vs Users vs Roles
+- **Users** — long-term credentials for humans or applications
+- **Groups** — assign policies to a group, all members inherit them (never assign policies directly to users)
+- **Roles** — temporary credentials, used by EC2 instances, Lambda, cross-account access
+
+### Principle of Least Privilege
+> Grant only the permissions required to perform a task — nothing more.
+
+```
+❌ Bad:  Give developer AdministratorAccess because it's easier
+✅ Good: Give developer access only to the specific S3 bucket and EC2 they need
+```
+
+### Testing Access
+Logged in as the newly created IAM user and:
+- Verified allowed actions worked
+- Verified restricted actions were denied
+- Confirmed the IAM boundary was correctly enforced
 
 ---
 
-## 🔹 Step 3 – Attach AWS Managed Policy to Group
+## 💡 Key Takeaways
 
-1. Open IAM
-2. Select the group
-3. Click **Attach policies**
-4. Choose an AWS managed policy
-5. Confirm attachment
-
----
-
-## 🔹 Step 4 – Validate Permissions
-
-1. Sign in as the IAM user
-2. Attempt to access AWS services
-3. Confirm access matches assigned policy
+1. **Never use the root account for daily work** — create an IAM admin user immediately after account creation.
+2. **Always assign policies to groups, not users** — scaling a team is much easier.
+3. **Least privilege is non-negotiable** — overly permissive policies are the root cause of most cloud breaches.
+4. **Enable MFA for all human users** — especially anyone with elevated permissions.
+5. **Rotate access keys regularly** — or better yet, use IAM Roles instead of long-term access keys.
 
 ---
 
-## 📷 Screenshots
+## 📸 Screenshots
 
-Screenshots of each step are available in the `screenshots/` folder.
-
----
-
-## 🔐 Security Best Practice Learned
-
-- Always assign permissions to groups, not individual users
-- Follow the principle of least privilege
-- Use AWS managed policies when appropriate
-
----
-
-## 📚 Key Takeaway
-
-IAM is the foundation of AWS security.  
-Understanding how users, groups, and policies interact is critical for secure cloud environments.
-
----
-
-## 👤 Author
-
-Tom Tumelo  
-AWS Re/Start Journey 🚀
+> Screenshots available in [`./lab_instructions.md/screenshots/`](./lab_instructions.md/screenshots/)
