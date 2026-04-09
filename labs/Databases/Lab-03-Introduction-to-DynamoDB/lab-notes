@@ -1,0 +1,30 @@
+# Introduction to Amazon DynamoDB Lab
+
+## Overview
+
+This lab introduced Amazon DynamoDB, AWS’s fully managed NoSQL database service, by creating a **Music** table and performing CRUD-like operations.
+
+## Tasks Completed
+
+* Created a DynamoDB table with:
+
+  * Partition key: `Artist`
+  * Sort key: `Song`
+* Added 3 music records
+* Modified an existing item (`Psy → Year 2012`)
+* Queried using partition + sort key
+* Scanned with filters
+* Deleted the table
+
+## Key Learnings
+
+* DynamoDB uses **key-value and document models**
+* Query is faster than scan
+* No fixed schema required
+* Items can have different attributes
+
+## Example Records
+
+* Pink Floyd — Money
+* John Lennon — Imagine
+* Psy — Gangnam Style
