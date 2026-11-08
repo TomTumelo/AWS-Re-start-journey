@@ -17,7 +17,6 @@ I'm **Tumelo Mathenjwa**, a Junior Cloud Engineer in training based in Johannesb
 
 AWS re/Start is an intensive, employer-driven program that prepares learners for careers in cloud computing. Every folder here represents real hands-on work: deployed infrastructure, working chatbots, database configurations, security setups, and more.
 
-> 🎯 **Currently pursuing:** AWS Certified Cloud Practitioner (CLF-C02)
 
 ---
 
@@ -116,8 +115,7 @@ AWS re/Start Program
 ├── ✅ Module 7: Storage (S3 / EFS)         Completed
 ├── ✅ Module 8: AI/ML Fundamentals         Completed
 ├── ✅ Module 9: Python Foundations         Completed
-└── 🎯 AWS CCP Exam (CLF-C02)              [ Upcoming ]
-```
+└── ✅ AWS CCP Exam (CLF-C02)             Completed
 
 ---
 
